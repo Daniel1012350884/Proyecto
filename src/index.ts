@@ -1,12 +1,22 @@
-import express, { Request, Response } from 'express';
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import compression from 'compression';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hola mundo que tal');
+app.use(helmet());
+app.use(cors());
+app.use(compression());
+app.use(morgan('dev'));
+
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando');
 });
 
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
